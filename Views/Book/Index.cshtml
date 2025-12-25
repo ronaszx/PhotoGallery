@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<div class="row pt-4">
+    <div class="col-6">
+        <h2 class="text-primary">Галерея</h2>
+    </div>
+    <div class="col-6 text-end">
+        <a asp-controller="Book" asp-action="Create" class="btn btn-primary"><i class="fa-regular fa-plus"></i> &nbsp; Додання нового фото</a>
+    </div>
+</div>
+<br>
+<br>
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Зображення</th>
+            <th>Назва</th>
+            <th>Автор</th>
+            <th>Опис</th>
+            <th>Рік</th>
+            <th>Категорія</th>
+            <th>Дії</th>
+        </tr>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Image</td>
+                <td>@obj.Title</td>
+                <td>@obj.Author</td>
+                <td>@obj.Description</td>
+                <td>@obj.Year</td>
+                <td>@obj.CategoryId</td>
+                <td>
+                    <a asp-controller="Book" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary m-1"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a asp-controller="Book" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger m-1"><i class="fa-regular fa-trash-can"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>Фото немає!</p>
+}
